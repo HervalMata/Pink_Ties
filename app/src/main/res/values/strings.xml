@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Pink_Ties</string>
+    <string name="navigation_drawer_open">Menu gaveta aberto</string>
+    <string name="navigation_drawer_close">Menu gaveta fechado</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="tx_login">Login</string>
+    <string name="tx_or">ou</string>
+    <string name="tx_me_sign_up">me Cadastrar</string>
+    <string name="tx_conected_as">Conectado como:</string>
+
+    <string name="item_all_pinks">Laços</string>
+    <string name="item_all_tiaras">Tiaras</string>
+    <string name="item_viseiras">Viseiras</string>
+    <string name="item_sandals">Faixas</string>
+    <string name="item_contact">Contato Pink Ties</string>
+    <string name="item_about">Sobre</string>
+    <string name="item_privacy_policy">Políticas de privacidade</string>
+    <string name="item_my_orders">Meus pedidos</string>
+    <string name="item_settings">Minhas configurações</string>
+    <string name="item_sign_out">Sair</string>
+</resources>

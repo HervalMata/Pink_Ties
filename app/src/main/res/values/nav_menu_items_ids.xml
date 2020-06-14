@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="item_all_pinks" type="id" format="integer"/>
+    <item name="item_all_tiaras" type="id" format="integer"/>
+    <item name="item_viseiras" type="id" format="integer"/>
+    <item name="item_sandals" type="id" format="integer"/>
+    <item name="item_contact" type="id" format="integer"/>
+    <item name="item_about" type="id" format="integer"/>
+    <item name="item_privacy_policy" type="id" format="integer"/>
+    <item name="item_my_orders" type="id" format="integer"/>
+    <item name="item_settings" type="id" format="integer"/>
+    <item name="item_sign_out" type="id" format="integer"/>
+</resources>
