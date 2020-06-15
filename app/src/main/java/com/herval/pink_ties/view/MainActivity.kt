@@ -4,15 +4,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,13 +23,17 @@ import com.herval.pink_ties.domain.User
 import com.herval.pink_ties.util.NavMenuItemDetailsLookup
 import com.herval.pink_ties.util.NavMenuItemKeyProvider
 import com.herval.pink_ties.util.NavMenuItemPredicate
-import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_user_logged.*
 import kotlinx.android.synthetic.main.nav_header_user_not_logged.*
 import kotlinx.android.synthetic.main.nav_menu.*
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        const val FRAGMENT_TAG = "frag-tag"
+    }
+
     lateinit var navMenuItems : List<NavMenuItem>
     lateinit var selectNavMenuItems : SelectionTracker<Long>
     lateinit var navMenuItemsLogged : List<NavMenuItem>
@@ -51,12 +55,11 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.nav_home,
-            R.id.nav_gallery,
-            R.id.nav_slideshow
+
         ), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         initNavMenu(savedInstanceState)
+        initFragment()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        selectNavMenuItems.onSaveInstanceState(outState!!)
+        selectNavMenuItems.onSaveInstanceState(outState)
         selectNavMenuItemsLogged.onSaveInstanceState(outState)
     }
 
@@ -187,6 +190,39 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> return true
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initFragment() {
+        val supFrag = supportFragmentManager
+        val fragment = supFrag.findFragmentByTag(FRAGMENT_TAG)
+        if (fragment == null) {
+            var fragment = getFragment(R.id.item_about.toLong())
+        }
+        if (fragment != null) {
+            replaceFragment(fragment)
+        }
+    }
+
+    private fun getFragment(fragmentId: Long) =
+        when (fragmentId) {
+            R.id.item_about.toLong() -> AboutFragment()
+            else -> AboutFragment()
+        }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(
+            R.id.fl_fragment_container, fragment, FRAGMENT_TAG
+        ).commit()
+    }
+
+    fun onItemStateChanged(key: Long, selected: Boolean) {
+        val fragment = getFragment(key)
+        replaceFragment(fragment)
+        drawer_layout.closeDrawer(GravityCompat.START)
+    }
+
+    fun updateToolbarTitleInFragment(titleStringId: Int) {
+        toolbar.title = getString(titleStringId)
     }
 }
 
